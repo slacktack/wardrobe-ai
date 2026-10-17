@@ -1,26 +1,146 @@
 @import "tailwindcss";
 
+/*
+  Semantic tokens: components reference names only, so both themes come free.
+  Dark is the default; [data-theme="light"] flips every value at once.
+*/
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg: #0a0a0a;
+  --surface: #131313;
+  --surface-2: #1b1b1b;
+  --line: rgba(255, 255, 255, 0.08);
+  --fg: #f4f2ec;
+  --muted: #9a9a94;
+  --accent: #c4d183;
+  --acid-fill: #c4d183;
+  --acid-ink: #14200a;
+  --scrim: rgba(0, 0, 0, 0.62);
+  --placeholder: #1b1b1b;
+  --elev-soft: 0 1px 2px rgba(0, 0, 0, 0.5), 0 6px 16px rgba(0, 0, 0, 0.32);
+  --elev-float: 0 14px 40px rgba(0, 0, 0, 0.55);
+  --elev-up: 0 -10px 30px rgba(0, 0, 0, 0.42);
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --bg: #f5f3ec;
+  --surface: #ffffff;
+  --surface-2: #eae6dc;
+  --line: rgba(10, 10, 10, 0.1);
+  --fg: #0a0a0a;
+  --muted: #6b695f;
+  --accent: #54662a;
+  --acid-fill: #b6c47a;
+  --acid-ink: #161f08;
+  --scrim: rgba(10, 10, 10, 0.34);
+  --placeholder: #e4dfd3;
+  --elev-soft: 0 1px 2px rgba(10, 10, 10, 0.08), 0 6px 16px rgba(10, 10, 10, 0.08);
+  --elev-float: 0 16px 40px rgba(10, 10, 10, 0.18);
+  --elev-up: 0 -10px 30px rgba(10, 10, 10, 0.12);
+  color-scheme: light;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-cream: var(--fg);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-scrim: var(--scrim);
+  --color-placeholder: var(--placeholder);
+
+  /* Acid is a fill that tunes per theme; acid-ink sits on top of it. */
+  --color-acid: var(--acid-fill);
+  --color-acid-ink: var(--acid-ink);
+
+  --font-sans: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), ui-serif, Georgia, serif;
+
+  --radius-card: 1.25rem;
+  --radius-pill: 999px;
+
+  /* Elevation flips with the theme so light mode never gets heavy black shadows. */
+  --shadow-soft: var(--elev-soft);
+  --shadow-float: var(--elev-float);
+  --shadow-up: var(--elev-up);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    background: var(--bg);
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-sans);
+    overscroll-behavior-y: none;
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  ::selection {
+    background: var(--color-acid);
+    color: var(--color-acid-ink);
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Safe-area padding for notched phones. */
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@utility mt-safe {
+  margin-top: env(safe-area-inset-top, 0px);
+}
+@utility mb-safe {
+  margin-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Hide scrollbars on horizontal rails. */
+@utility no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Horizontal snap rail for product carousels. */
+@utility snap-row {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: 1rem;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  & > * {
+    scroll-snap-align: start;
+    flex: 0 0 auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }
