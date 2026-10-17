@@ -137,7 +137,7 @@ function EmptyLooks() {
       <p className="max-w-[30ch] text-xs leading-relaxed text-muted">
         Save a look from the studio and it lands here, ready to share.
       </p>
-      <Link href="/studio" className="contents">
+      <Link href="/" className="contents">
         <Button className="mt-1">
           Build a look <ArrowUpRight aria-hidden className="h-4 w-4" />
         </Button>

@@ -1,10 +1,10 @@
 import { AppShell } from "@/components/shell/AppShell";
-import { HomeScreen } from "@/components/discover/HomeScreen";
+import { StudioScreen } from "@/components/studio/StudioScreen";
 
 export default function Page() {
   return (
     <AppShell>
-      <HomeScreen />
+      <StudioScreen />
     </AppShell>
   );
 }

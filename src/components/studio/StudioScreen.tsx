@@ -136,7 +136,7 @@ export function StudioScreen() {
   return (
     <>
       {phase === "idle" ? (
-        <ImageIntake onFile={handleFile} onExample={runExtract} errorMessage={error} />
+        <ImageIntake onFile={handleFile} errorMessage={error} />
       ) : null}
 
       {phase === "extracting" ? <ExtractingView image={image} /> : null}

@@ -2,13 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bookmark, CircleUserRound, House, Search, Sparkles } from "lucide-react";
+import { Bookmark, CircleUserRound, ScanLine, Search } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 
 const TABS = [
-  { href: "/", label: "Home", icon: House },
-  { href: "/studio", label: "Studio", icon: Sparkles },
+  { href: "/", label: "Scan", icon: ScanLine },
   { href: "/search", label: "Search", icon: Search },
   { href: "/saved", label: "Saved", icon: Bookmark },
   { href: "/profile", label: "Profile", icon: CircleUserRound },

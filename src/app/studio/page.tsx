@@ -1,10 +1,5 @@
-import { AppShell } from "@/components/shell/AppShell";
-import { StudioScreen } from "@/components/studio/StudioScreen";
+import { redirect } from "next/navigation";
 
 export default function Page() {
-  return (
-    <AppShell>
-      <StudioScreen />
-    </AppShell>
-  );
+  redirect("/");
 }

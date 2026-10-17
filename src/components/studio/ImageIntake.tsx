@@ -1,28 +1,16 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Camera, ClipboardPaste, ImagePlus, LayoutTemplate } from "lucide-react";
+import { Camera, ClipboardPaste, ImagePlus } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Chip } from "@/components/ui/Chip";
 
-const EXAMPLES = [
-  {
-    url: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=900&q=80&auto=format&fit=crop",
-    label: "Editorial",
-  },
-  {
-    url: "https://images.unsplash.com/photo-1529139574466-a303027c1d8b?w=900&q=80&auto=format&fit=crop",
-    label: "Street style",
-  },
-];
-
 interface ImageIntakeProps {
   onFile: (file: File) => void;
-  onExample: (url: string) => void;
   errorMessage?: string | null;
 }
 
-export function ImageIntake({ onFile, onExample, errorMessage }: ImageIntakeProps) {
+export function ImageIntake({ onFile, errorMessage }: ImageIntakeProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const [dragging, setDragging] = useState(false);
 
@@ -113,36 +101,6 @@ export function ImageIntake({ onFile, onExample, errorMessage }: ImageIntakeProp
             {errorMessage}
           </p>
         ) : null}
-
-        <div className="mt-12">
-          <p className="flex items-center gap-2 text-[10px] uppercase tracking-[0.26em] text-muted">
-            <LayoutTemplate aria-hidden className="h-3.5 w-3.5" />
-            Try an example
-          </p>
-          <div className="snap-row mt-4 gap-3">
-            {EXAMPLES.map((example) => (
-              <button
-                key={example.url}
-                type="button"
-                onClick={() => onExample(example.url)}
-                className="group w-[8.5rem] text-left"
-              >
-                <span className="block aspect-[3/4] overflow-hidden rounded-card border border-line bg-surface-2">
-                  <img
-                    src={example.url}
-                    alt={`${example.label} outfit example`}
-                    loading="lazy"
-                    referrerPolicy="no-referrer"
-                    className="h-full w-full object-cover transition-transform duration-300 group-active:scale-[0.98]"
-                  />
-                </span>
-                <span className="mt-2 block font-serif text-base italic text-muted transition-colors group-hover:text-cream">
-                  {example.label}
-                </span>
-              </button>
-            ))}
-          </div>
-        </div>
       </section>
     </div>
   );
